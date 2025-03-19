@@ -51,7 +51,7 @@ const MenuCategories = ({
   };
 
   return (
-    <div className="w-full bg-black shadow-md sticky top-0 z-10 border-b border-green-800">
+    <div className="w-full bg-black/40 backdrop-blur-md shadow-md sticky top-0 z-10 border-b border-white/10">
       <ScrollArea className="w-full">
         <div className="flex p-3 space-x-3 overflow-x-auto">
           {categories.map((category) => (
@@ -62,18 +62,18 @@ const MenuCategories = ({
                 "px-4 py-2 rounded-md whitespace-nowrap transition-all duration-300",
                 "text-sm font-medium min-w-[100px] md:min-w-[120px] transform hover:scale-105",
                 selectedCategory === category.id
-                  ? "bg-green-600 text-white shadow-md"
-                  : "bg-green-900/30 hover:bg-green-800/50 text-green-100",
+                  ? "bg-white/20 text-white shadow-md backdrop-blur-sm border border-white/10"
+                  : "bg-black/30 hover:bg-white/10 text-white/80 backdrop-blur-sm border border-white/5",
               )}
             >
               {category.icon && (
-                <span className="mr-2 text-green-400">{category.icon}</span>
+                <span className="mr-2 text-white/80">{category.icon}</span>
               )}
               {category.name}
             </button>
           ))}
         </div>
-        <ScrollBar orientation="horizontal" className="bg-green-900/20" />
+        <ScrollBar orientation="horizontal" className="bg-white/10" />
       </ScrollArea>
     </div>
   );

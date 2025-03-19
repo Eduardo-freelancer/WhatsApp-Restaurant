@@ -107,10 +107,10 @@ const Reservation = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="sm:max-w-md md:max-w-lg bg-black text-white border border-green-800 rounded-xl shadow-xl">
+      <DialogContent className="sm:max-w-md md:max-w-lg bg-zinc-900 text-white border border-indigo-800 rounded-xl shadow-xl">
         <DialogHeader>
-          <DialogTitle className="text-xl font-bold text-center text-green-500 flex items-center justify-center">
-            <Users className="h-6 w-6 text-green-500 mr-2" />
+          <DialogTitle className="text-xl font-bold text-center text-indigo-500 flex items-center justify-center">
+            <Users className="h-6 w-6 text-indigo-500 mr-2" />
             Fazer Reserva
           </DialogTitle>
         </DialogHeader>
@@ -118,7 +118,7 @@ const Reservation = ({
         <form onSubmit={handleSubmit} className="mt-4 space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="name" className="text-green-400">
+              <Label htmlFor="name" className="text-indigo-400">
                 Nome
               </Label>
               <Input
@@ -126,11 +126,11 @@ const Reservation = ({
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
-                className="bg-gray-900 border-green-800 focus:border-green-500 text-white"
+                className="bg-zinc-800 border-indigo-800 focus:border-indigo-500 text-white"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="phone" className="text-green-400">
+              <Label htmlFor="phone" className="text-indigo-400">
                 Telefone
               </Label>
               <Input
@@ -138,13 +138,13 @@ const Reservation = ({
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 required
-                className="bg-gray-900 border-green-800 focus:border-green-500 text-white"
+                className="bg-zinc-800 border-indigo-800 focus:border-indigo-500 text-white"
               />
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="email" className="text-green-400">
+            <Label htmlFor="email" className="text-indigo-400">
               Email
             </Label>
             <Input
@@ -153,23 +153,23 @@ const Reservation = ({
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="bg-gray-900 border-green-800 focus:border-green-500 text-white"
+              className="bg-zinc-800 border-indigo-800 focus:border-indigo-500 text-white"
             />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label className="text-green-400">Data</Label>
+              <Label className="text-indigo-400">Data</Label>
               <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>
                 <PopoverTrigger asChild>
                   <Button
                     variant="outline"
                     className={cn(
-                      "w-full justify-start text-left font-normal bg-gray-900 border-green-800 hover:bg-gray-800 hover:text-green-400",
-                      !date && "text-gray-400",
+                      "w-full justify-start text-left font-normal bg-zinc-800 border-indigo-800 hover:bg-zinc-700 hover:text-indigo-400",
+                      !date && "text-zinc-400",
                     )}
                   >
-                    <CalendarIcon className="mr-2 h-4 w-4 text-green-500" />
+                    <CalendarIcon className="mr-2 h-4 w-4 text-indigo-500" />
                     {date ? (
                       format(date, "PPP", { locale: ptBR })
                     ) : (
@@ -177,7 +177,7 @@ const Reservation = ({
                     )}
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-auto p-0 bg-gray-900 border border-green-800">
+                <PopoverContent className="w-auto p-0 bg-zinc-800 border border-indigo-800">
                   <Calendar
                     mode="single"
                     selected={date}
@@ -189,32 +189,32 @@ const Reservation = ({
                     disabled={(date) =>
                       date < new Date(new Date().setHours(0, 0, 0, 0))
                     }
-                    className="bg-gray-900 text-white"
+                    className="bg-zinc-800 text-white"
                   />
                 </PopoverContent>
               </Popover>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="time" className="text-green-400">
+              <Label htmlFor="time" className="text-indigo-400">
                 Horário
               </Label>
               <Select value={time} onValueChange={setTime} required>
                 <SelectTrigger
                   id="time"
-                  className="bg-gray-900 border-green-800 focus:border-green-500 text-white hover:bg-gray-800"
+                  className="bg-zinc-800 border-indigo-800 focus:border-indigo-500 text-white hover:bg-zinc-700"
                 >
                   <SelectValue placeholder="Selecione um horário" />
                 </SelectTrigger>
-                <SelectContent className="bg-gray-900 border border-green-800 text-white">
+                <SelectContent className="bg-zinc-800 border border-indigo-800 text-white">
                   {timeSlots.map((slot) => (
                     <SelectItem
                       key={slot}
                       value={slot}
-                      className="hover:bg-green-900 focus:bg-green-900 focus:text-white"
+                      className="hover:bg-indigo-900 focus:bg-indigo-900 focus:text-white"
                     >
                       <div className="flex items-center">
-                        <Clock className="mr-2 h-4 w-4 text-green-500" />
+                        <Clock className="mr-2 h-4 w-4 text-indigo-500" />
                         {slot}
                       </div>
                     </SelectItem>
@@ -225,25 +225,25 @@ const Reservation = ({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="guests" className="text-green-400">
+            <Label htmlFor="guests" className="text-indigo-400">
               Número de pessoas
             </Label>
             <Select value={guests} onValueChange={setGuests} required>
               <SelectTrigger
                 id="guests"
-                className="bg-gray-900 border-green-800 focus:border-green-500 text-white hover:bg-gray-800"
+                className="bg-zinc-800 border-indigo-800 focus:border-indigo-500 text-white hover:bg-zinc-700"
               >
                 <SelectValue placeholder="Selecione o número de pessoas" />
               </SelectTrigger>
-              <SelectContent className="bg-gray-900 border border-green-800 text-white">
+              <SelectContent className="bg-zinc-800 border border-indigo-800 text-white">
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
                   <SelectItem
                     key={num}
                     value={num.toString()}
-                    className="hover:bg-green-900 focus:bg-green-900 focus:text-white"
+                    className="hover:bg-indigo-900 focus:bg-indigo-900 focus:text-white"
                   >
                     <div className="flex items-center">
-                      <Users className="mr-2 h-4 w-4 text-green-500" />
+                      <Users className="mr-2 h-4 w-4 text-indigo-500" />
                       {num} {num === 1 ? "pessoa" : "pessoas"}
                     </div>
                   </SelectItem>
@@ -253,20 +253,20 @@ const Reservation = ({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="specialRequests" className="text-green-400">
+            <Label htmlFor="specialRequests" className="text-indigo-400">
               Solicitações especiais
             </Label>
             <Textarea
               id="specialRequests"
               value={specialRequests}
               onChange={(e) => setSpecialRequests(e.target.value)}
-              className="bg-gray-900 border-green-800 focus:border-green-500 text-white min-h-[100px]"
+              className="bg-zinc-800 border-indigo-800 focus:border-indigo-500 text-white min-h-[100px]"
               placeholder="Informe qualquer solicitação especial (alergias, preferências, ocasião especial, etc.)"
             />
           </div>
 
-          <div className="bg-green-900/30 border border-green-800 rounded-xl p-4 shadow-sm">
-            <p className="text-sm text-green-300">
+          <div className="bg-indigo-900/30 border border-indigo-800 rounded-xl p-4 shadow-sm">
+            <p className="text-sm text-indigo-300">
               Ao confirmar, você será redirecionado para o WhatsApp para
               finalizar sua reserva. Aguarde nossa confirmação por telefone ou
               email.
@@ -278,13 +278,13 @@ const Reservation = ({
               type="button"
               variant="outline"
               onClick={onClose}
-              className="w-full sm:w-auto border-green-800 hover:bg-green-900/30 text-white hover:text-green-400 transition-all duration-200"
+              className="w-full sm:w-auto border-indigo-800 hover:bg-indigo-900/30 text-white hover:text-indigo-400 transition-all duration-200"
             >
               Cancelar
             </Button>
             <Button
               type="submit"
-              className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white rounded-md shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-[1.02] flex items-center justify-center"
+              className="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white rounded-md shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-[1.02] flex items-center justify-center"
             >
               <Send className="mr-2 h-4 w-4" />
               Enviar Reserva via WhatsApp

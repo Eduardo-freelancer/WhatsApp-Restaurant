@@ -244,20 +244,20 @@ const MenuItems = ({
   );
 
   return (
-    <div className="w-full bg-gradient-to-b from-indigo-950/90 to-zinc-900 p-4 md:p-6">
+    <div className="w-full bg-black/30 backdrop-blur-md p-4 md:p-6 rounded-xl border border-white/10">
       <div className="mb-6 flex flex-col md:flex-row gap-4">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-indigo-400 h-4 w-4" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/70 h-4 w-4" />
           <Input
             placeholder="Buscar no cardápio..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10 border-indigo-700 focus:border-indigo-500 rounded-full bg-zinc-900/80 text-white"
+            className="pl-10 border-white/20 focus:border-white/40 rounded-full bg-black/30 text-white backdrop-blur-sm"
           />
         </div>
         <Button
           variant="outline"
-          className="md:w-auto w-full border-indigo-700 text-indigo-400 hover:bg-indigo-900/50 hover:text-indigo-300"
+          className="md:w-auto w-full border-white/20 text-white/80 hover:bg-white/10 hover:text-white backdrop-blur-sm"
           onClick={() => setShowFilters(!showFilters)}
         >
           <Filter className="h-4 w-4 mr-2" />
@@ -271,12 +271,12 @@ const MenuItems = ({
         onValueChange={setActiveCategory}
         className="w-full"
       >
-        <TabsList className="w-full mb-6 bg-zinc-900 rounded-full p-1 shadow-md border border-indigo-800 overflow-x-auto flex-nowrap">
+        <TabsList className="w-full mb-6 bg-black/40 rounded-full p-1 shadow-md border border-white/10 overflow-x-auto flex-nowrap backdrop-blur-sm">
           {categories.map((category) => (
             <TabsTrigger
               key={category.id}
               value={category.id}
-              className="flex-1 rounded-full data-[state=active]:bg-indigo-700 data-[state=active]:text-white data-[state=active]:shadow-md transition-all duration-300 py-2.5 flex items-center justify-center text-indigo-400 whitespace-nowrap"
+              className="flex-1 rounded-full data-[state=active]:bg-white/20 data-[state=active]:text-white data-[state=active]:shadow-md transition-all duration-300 py-2.5 flex items-center justify-center text-white/70 whitespace-nowrap backdrop-blur-sm"
             >
               {category.icon}
               {category.name}
@@ -290,7 +290,7 @@ const MenuItems = ({
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="flex flex-wrap gap-2 mb-6 bg-zinc-900/50 p-3 rounded-lg border border-indigo-900/50"
+            className="flex flex-wrap gap-2 mb-6 bg-black/20 p-3 rounded-lg border border-white/10 backdrop-blur-sm"
           >
             {availableTags.map((tag) => (
               <button
@@ -298,7 +298,7 @@ const MenuItems = ({
                 onClick={() =>
                   setActiveFilter(activeFilter === tag ? null : tag)
                 }
-                className={`px-3 py-1 rounded-full text-sm font-medium transition-colors duration-200 ${activeFilter === tag ? "bg-indigo-700 text-white" : "bg-zinc-900 text-indigo-400 border border-indigo-700 hover:bg-indigo-900"}`}
+                className={`px-3 py-1 rounded-full text-sm font-medium transition-colors duration-200 ${activeFilter === tag ? "bg-white/20 text-white" : "bg-black/30 text-white/80 border border-white/20 hover:bg-white/10"}`}
               >
                 {tag}
               </button>
@@ -306,7 +306,7 @@ const MenuItems = ({
             {activeFilter && (
               <button
                 onClick={() => setActiveFilter(null)}
-                className="px-3 py-1 rounded-full text-sm font-medium bg-indigo-950 text-indigo-300 hover:bg-indigo-900 transition-colors duration-200"
+                className="px-3 py-1 rounded-full text-sm font-medium bg-black/40 text-white/80 hover:bg-white/10 transition-colors duration-200"
               >
                 Limpar filtros
               </button>
@@ -326,7 +326,7 @@ const MenuItems = ({
               !activeFilter && (
                 <div className="mb-8">
                   <h3 className="text-lg font-bold text-white mb-4 flex items-center">
-                    <Star className="h-5 w-5 text-indigo-400 mr-2" />
+                    <Star className="h-5 w-5 text-white/80 mr-2" />
                     Destaques {category.name}
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
@@ -358,11 +358,11 @@ const MenuItems = ({
             <ScrollArea className="h-[calc(100vh-300px)] md:h-[600px] pr-4">
               {filteredItems.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-12 text-center">
-                  <Search className="h-12 w-12 text-indigo-600 mb-4" />
+                  <Search className="h-12 w-12 text-white/50 mb-4" />
                   <h3 className="text-lg font-medium mb-2 text-white">
                     Nenhum item encontrado
                   </h3>
-                  <p className="text-indigo-400 mb-4">
+                  <p className="text-white/70 mb-4">
                     Tente ajustar sua busca ou filtros
                   </p>
                   <button
@@ -370,7 +370,7 @@ const MenuItems = ({
                       setSearchTerm("");
                       setActiveFilter(null);
                     }}
-                    className="text-indigo-500 font-medium hover:underline"
+                    className="text-white/80 font-medium hover:underline"
                   >
                     Limpar filtros
                   </button>

@@ -16,6 +16,7 @@ interface OrderItem {
   price: number;
   quantity: number;
   customizations?: string[];
+  image?: string;
 }
 
 interface OrderSummaryProps {
@@ -27,19 +28,9 @@ interface OrderSummaryProps {
 }
 
 const OrderSummary = ({
-  isOpen = true,
+  isOpen = false,
   onClose = () => {},
-  items = [
-    { id: "1", name: "Bruschetta", price: 12.99, quantity: 2 },
-    {
-      id: "2",
-      name: "Pizza Margherita",
-      price: 24.99,
-      quantity: 1,
-      customizations: ["Sem cebola", "Borda recheada"],
-    },
-    { id: "3", name: "Água Mineral", price: 4.99, quantity: 2 },
-  ],
+  items = [],
   onConfirm = () => {},
   onCancel = () => {},
 }: OrderSummaryProps) => {
@@ -59,10 +50,10 @@ const OrderSummary = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="sm:max-w-md md:max-w-lg bg-white rounded-xl border-0 shadow-xl">
+      <DialogContent className="sm:max-w-md md:max-w-lg backdrop-blur-md bg-black/40 text-white rounded-xl border border-white/10 shadow-xl">
         <DialogHeader>
-          <DialogTitle className="text-xl font-bold text-center text-gray-800 flex items-center justify-center">
-            <ShoppingBag className="h-6 w-6 text-orange-500 mr-2" />
+          <DialogTitle className="text-xl font-bold text-center text-white flex items-center justify-center">
+            <ShoppingBag className="h-6 w-6 text-white/80 mr-2" />
             Resumo do Pedido
           </DialogTitle>
         </DialogHeader>
@@ -71,12 +62,12 @@ const OrderSummary = ({
           {items.map((item) => (
             <div
               key={item.id}
-              className="mb-4 p-4 border border-orange-100 rounded-xl bg-gradient-to-r from-orange-50/50 to-white shadow-sm hover:shadow transition-all duration-200"
+              className="mb-4 p-4 border border-white/10 rounded-xl bg-white/5 shadow-sm hover:shadow transition-all duration-200"
             >
               <div className="flex justify-between items-start">
                 <div>
-                  <h3 className="font-medium text-gray-800">{item.name}</h3>
-                  <p className="text-sm text-gray-600 mt-1">
+                  <h3 className="font-medium text-white">{item.name}</h3>
+                  <p className="text-sm text-white/70 mt-1">
                     Quantidade: {item.quantity}
                   </p>
                   {item.customizations && item.customizations.length > 0 && (
@@ -84,7 +75,7 @@ const OrderSummary = ({
                       {item.customizations.map((custom, idx) => (
                         <span
                           key={idx}
-                          className="text-xs bg-orange-100 text-orange-700 rounded-full px-3 py-1 inline-block"
+                          className="text-xs bg-white/10 text-white/80 rounded-full px-3 py-1 inline-block"
                         >
                           {custom}
                         </span>
@@ -92,7 +83,7 @@ const OrderSummary = ({
                     </div>
                   )}
                 </div>
-                <p className="font-medium text-orange-600">
+                <p className="font-medium text-white/90">
                   {formatCurrency(item.price * item.quantity)}
                 </p>
               </div>
@@ -100,32 +91,30 @@ const OrderSummary = ({
           ))}
         </div>
 
-        <div className="mt-5 space-y-3 bg-orange-50/50 p-4 rounded-xl">
+        <div className="mt-5 space-y-3 bg-white/5 p-4 rounded-xl border border-white/10">
           <div className="flex justify-between">
-            <span className="text-gray-600">Subtotal</span>
-            <span>{formatCurrency(subtotal)}</span>
+            <span className="text-white/70">Subtotal</span>
+            <span className="text-white">{formatCurrency(subtotal)}</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-gray-600">Taxa de entrega</span>
-            <span>{formatCurrency(deliveryFee)}</span>
+            <span className="text-white/70">Taxa de entrega</span>
+            <span className="text-white">{formatCurrency(deliveryFee)}</span>
           </div>
-          <Separator className="my-2 bg-orange-200/50" />
+          <Separator className="my-2 bg-white/10" />
           <div className="flex justify-between font-bold">
-            <span className="text-gray-800">Total</span>
-            <span className="text-orange-600 text-lg">
-              {formatCurrency(total)}
-            </span>
+            <span className="text-white">Total</span>
+            <span className="text-white text-lg">{formatCurrency(total)}</span>
           </div>
         </div>
 
-        <div className="mt-5 bg-blue-50 border border-blue-100 rounded-xl p-4 shadow-sm">
+        <div className="mt-5 bg-white/5 border border-white/10 rounded-xl p-4 shadow-sm">
           <div className="flex items-start">
-            <AlertCircle className="h-5 w-5 text-blue-500 mr-3 flex-shrink-0 mt-0.5" />
+            <AlertCircle className="h-5 w-5 text-white/80 mr-3 flex-shrink-0 mt-0.5" />
             <div>
-              <p className="text-sm text-blue-700 font-medium mb-1">
+              <p className="text-sm text-white/80 font-medium mb-1">
                 Tempo estimado de preparo: 30-45 minutos
               </p>
-              <p className="text-sm text-blue-600">
+              <p className="text-sm text-white/70">
                 Ao confirmar, você será redirecionado para o WhatsApp para
                 finalizar seu pedido.
               </p>
@@ -136,14 +125,14 @@ const OrderSummary = ({
         <DialogFooter className="flex flex-col sm:flex-row gap-3 mt-5">
           <Button
             variant="outline"
-            className="flex items-center gap-2 w-full sm:w-auto rounded-full border-gray-200 hover:bg-gray-100 transition-all duration-200"
+            className="flex items-center gap-2 w-full sm:w-auto rounded-md border-white/20 hover:bg-white/10 text-white transition-all duration-200"
             onClick={onCancel}
           >
             <X className="h-4 w-4" />
             Cancelar
           </Button>
           <Button
-            className="flex items-center gap-2 w-full sm:w-auto bg-orange-500 hover:bg-orange-600 rounded-full shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-[1.02]"
+            className="flex items-center gap-2 w-full sm:w-auto bg-white/20 hover:bg-white/30 rounded-md shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-[1.02] backdrop-blur-sm border border-white/10"
             onClick={onConfirm}
           >
             <Check className="h-4 w-4" />

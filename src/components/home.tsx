@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ShoppingBag } from "lucide-react";
 import Header from "./Header";
 import MenuCategories from "./MenuCategories";
@@ -10,7 +10,7 @@ import { Button } from "./ui/button";
 import { MenuItem, menuItems } from "./MenuData";
 
 const Home = () => {
-  const [selectedCategory, setSelectedCategory] = useState("Todos");
+  const [selectedCategory, setSelectedCategory] = useState("entradas");
   const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [isOrderSummaryOpen, setIsOrderSummaryOpen] = useState(false);
@@ -22,9 +22,9 @@ const Home = () => {
       price: number;
       quantity: number;
       customizations?: string[];
+      image?: string;
     }>
   >([]);
-  const [menuItemsList, setMenuItemsList] = useState<MenuItem[]>(menuItems);
 
   const handleCategoryChange = (category: string) => {
     setSelectedCategory(category);
@@ -63,6 +63,7 @@ const Home = () => {
           price: item.price,
           quantity: quantity,
           customizations: customizations,
+          image: item.image,
         },
       ]);
     }
@@ -88,6 +89,7 @@ const Home = () => {
           name: item.name,
           price: item.price,
           quantity: 1,
+          image: item.image,
         },
       ]);
     }
@@ -127,6 +129,8 @@ const Home = () => {
 
     // Close the order summary modal
     setIsOrderSummaryOpen(false);
+    // Clear cart after order is placed
+    setCartItems([]);
   };
 
   const toggleMobileCart = () => {
@@ -134,7 +138,7 @@ const Home = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-b from-orange-50/30 to-white">
+    <div className="flex flex-col min-h-screen bg-zinc-900">
       <Header
         restaurantName="Restaurante Delícia"
         cartItemCount={cartItems.reduce((sum, item) => sum + item.quantity, 0)}
@@ -153,7 +157,7 @@ const Home = () => {
               selectedCategory={selectedCategory}
               onItemClick={handleItemClick}
               onAddToCart={handleAddToCartDirect}
-              items={menuItemsList}
+              items={menuItems}
             />
           </div>
         </div>
@@ -191,11 +195,11 @@ const Home = () => {
       <div className="fixed bottom-6 right-6 md:hidden z-30">
         <Button
           onClick={toggleMobileCart}
-          className="h-14 w-14 rounded-full bg-orange-500 hover:bg-orange-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+          className="h-14 w-14 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
         >
           <ShoppingBag className="h-6 w-6" />
           {cartItems.length > 0 && (
-            <span className="absolute -top-2 -right-2 bg-white text-orange-500 rounded-full h-6 w-6 flex items-center justify-center text-sm font-bold border-2 border-orange-500">
+            <span className="absolute -top-2 -right-2 bg-white text-indigo-600 rounded-full h-6 w-6 flex items-center justify-center text-sm font-bold border-2 border-indigo-600">
               {cartItems.reduce((sum, item) => sum + item.quantity, 0)}
             </span>
           )}
@@ -203,12 +207,14 @@ const Home = () => {
       </div>
 
       {/* Item Detail Modal */}
-      <ItemDetailModal
-        item={selectedItem || undefined}
-        isOpen={isDetailModalOpen}
-        onClose={() => setIsDetailModalOpen(false)}
-        onAddToCart={handleAddToCartFromModal}
-      />
+      {selectedItem && (
+        <ItemDetailModal
+          item={selectedItem}
+          isOpen={isDetailModalOpen}
+          onClose={() => setIsDetailModalOpen(false)}
+          onAddToCart={handleAddToCartFromModal}
+        />
+      )}
 
       {/* Order Summary Modal */}
       <OrderSummary
